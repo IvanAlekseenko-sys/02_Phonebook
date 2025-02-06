@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class LoginTests extends TestBase {
     @Test
-    public void CreateAccountPositiveTests() {
+    public void LoginPositiveTests() {
         type(By.cssSelector("#userName"), "pppaaa@ppp.com");
         type(By.cssSelector("#password"),"Password@1");
         click(By.cssSelector("#loginButtonText"));
