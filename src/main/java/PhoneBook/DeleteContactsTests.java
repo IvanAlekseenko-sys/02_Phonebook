@@ -34,7 +34,7 @@ public class DeleteContactsTests extends TestBase {
                 deleteFirstContact();
             }
         } catch (NoSuchElementException e) {
-            System.out.println("Все контакты были удалены");
+            System.out.println("Нет контактов для удаления");
         }
         Assert.assertEquals(getContactsCount(),0, "Не все контакты были удалены");
     }
