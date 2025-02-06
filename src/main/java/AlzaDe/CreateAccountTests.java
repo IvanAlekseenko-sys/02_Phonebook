@@ -33,30 +33,30 @@ public class CreateAccountTests {
         } catch (TimeoutException | NoSuchElementException e) {
             System.out.println("нет куки попапа, тест продолжается");
         }
-        driver.findElement(By.cssSelector("#edth1EmailLogin")).click();
+        driver.findElement(By.id("edth1EmailLogin")).click();
         //driver.findElement(By.cssSelector("#edth1EmailLogin")).clear(); //не срабатывает
-        driver.findElement(By.cssSelector("#edth1EmailLogin")).sendKeys(Keys.CONTROL + "a");
-        driver.findElement(By.cssSelector("#edth1EmailLogin")).sendKeys(Keys.DELETE);
-        driver.findElement(By.cssSelector("#edth1EmailLogin")).sendKeys("pppaaa@ppp.com");
-        driver.findElement(By.cssSelector("#edth1Password")).click();
-        driver.findElement(By.cssSelector("#edth1Password")).sendKeys("Password@1");
-        driver.findElement(By.cssSelector("#edth1PasswordConfirm")).sendKeys("Password@1");
+        driver.findElement(By.id("edth1EmailLogin")).sendKeys(Keys.CONTROL + "a");
+        driver.findElement(By.id("edth1EmailLogin")).sendKeys(Keys.DELETE);
+        driver.findElement(By.id("edth1EmailLogin")).sendKeys("pppaaa@ppp.com");
+        driver.findElement(By.id("edth1Password")).click();
+        driver.findElement(By.id("edth1Password")).sendKeys("Password@1");
+        driver.findElement(By.id("edth1PasswordConfirm")).sendKeys("Password@1");
         driver.findElement(By.xpath("//*[@id='ddlPhoneCountryPrefix-button']//span[3]")).click();
-        driver.findElement(By.cssSelector("#ui-id-4")).click();
+        driver.findElement(By.id("ui-id-4")).click();
         driver.findElement(By.xpath("//*[contains(@id, 'inpTelNumber')]")).click();
         driver.findElement(By.xpath("//*[contains(@id, 'inpTelNumber')]")).sendKeys("99999999");
-        driver.findElement(By.cssSelector("#edth2Name")).click();
-        driver.findElement(By.cssSelector("#edth2Name")).sendKeys("Ananas Ananasov");
-        driver.findElement(By.cssSelector("#edth2Street")).click();
-        driver.findElement(By.cssSelector("#edth2Street")).sendKeys("Ananasovaya str. 10");
-        driver.findElement(By.cssSelector("#edth2City")).click();
-        driver.findElement(By.cssSelector("#edth2City")).sendKeys("Fruit Paradise");
-        driver.findElement(By.cssSelector("#edth2Zip")).click();
-        driver.findElement(By.cssSelector("#edth2Zip")).sendKeys("22334");
+        driver.findElement(By.id("edth2Name")).click();
+        driver.findElement(By.id("edth2Name")).sendKeys("Ananas Ananasov");
+        driver.findElement(By.id("edth2Street")).click();
+        driver.findElement(By.id("edth2Street")).sendKeys("Ananasovaya str. 10");
+        driver.findElement(By.id("edth2City")).click();
+        driver.findElement(By.id("edth2City")).sendKeys("Fruit Paradise");
+        driver.findElement(By.id("edth2Zip")).click();
+        driver.findElement(By.id("edth2Zip")).sendKeys("22334");
         driver.findElement(By.xpath("//span[contains(text(),'Speichern')]")).click();
     }
 
-    @AfterMethod(enabled = false)
+    @AfterMethod(enabled = true)
     public void tearDown() {
         driver.quit();
     }

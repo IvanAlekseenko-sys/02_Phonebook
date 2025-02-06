@@ -7,9 +7,9 @@ import org.testng.annotations.Test;
 public class LoginTests extends TestBase {
     @Test
     public void LoginPositiveTests() {
-        type(By.cssSelector("#userName"), "pppaaa@ppp.com");
-        type(By.cssSelector("#password"),"Password@1");
-        click(By.cssSelector("#loginButtonText"));
+        type(By.id("userName"), "pppaaa@ppp.com");
+        type(By.id("password"),"Password@1");
+        click(By.id("loginButtonText"));
         Assert.assertTrue(isElementPresent(By.xpath("//span[@title='Ananas Ananasov']")));
     }
 }
