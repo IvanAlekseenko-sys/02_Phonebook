@@ -1,9 +1,13 @@
 package DemoWebShop;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import java.time.Duration;
 
 public class AddItemToCartTests extends TestBase {
 
@@ -16,12 +20,15 @@ public class AddItemToCartTests extends TestBase {
     public void AddItemToCartPositiveTests() {
         try {
             click(By.xpath("(//input[@value='Add to cart'])[2]"));
-            click(By.xpath("//body/div[@id='bar-notification']/span[1]"));
+            click(By.cssSelector("span.close"));
         } catch (Exception e) {
             System.out.println("Товар не был добавлен в корзину");
         }
-        Assert.assertEquals(driver.findElement(By.xpath("//span[normalize-space(text())='(1)']")), driver.findElement(By.xpath("//span[normalize-space(text())='(1)']")));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement cartItemCount = wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By.cssSelector("span.cart-qty")));
 
+        Assert.assertEquals(cartItemCount.getText(), "(1)");
     }
 
 }

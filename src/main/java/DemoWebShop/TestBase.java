@@ -29,22 +29,34 @@ public class TestBase {
 
     public void login() {
         clickOnLoginLink();
-        typeEmail();
-        typePassword();
+        fillInLoginForm(new User()
+                .setEmail("ppp@ppp.com")
+                .setPassword("Password@1"));
         click(By.cssSelector("input[value='Log in']"));
     }
 
-    public void typePassword() {
-        driver.findElement(By.cssSelector("#Password")).click();
-        driver.findElement(By.cssSelector("#Password")).clear();
-        driver.findElement(By.cssSelector("#Password")).sendKeys("Password@1");
+
+    public void fillInLoginForm(User user) {
+        typeEmail(user.getEmail());
+        typePassword(user.getPassword());
     }
 
-    public void typeEmail() {
-        driver.findElement(By.cssSelector("#Email")).click();
-        driver.findElement(By.cssSelector("#Email")).clear();
-        driver.findElement(By.cssSelector("#Email")).sendKeys("ppp@ppp.com");
+    public void typePassword(String password) {
+        type(By.id("Password"), password);
     }
+
+    public void typeEmail(String email) {
+        type(By.id("Email"), email);
+    }
+
+    public void type(By locator, String text) {
+        if (text != null) {
+            click(locator);
+            driver.findElement(locator).clear();
+            driver.findElement(locator).sendKeys(text);
+        }
+    }
+
 
     public void clickOnLoginLink() {
         click(By.xpath("//a[contains(text(),'Log in')]"));
