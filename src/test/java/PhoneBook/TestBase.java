@@ -6,7 +6,7 @@ import org.testng.annotations.BeforeMethod;
 
 public class TestBase {
 
-    protected final ApplicationManager app = new ApplicationManager(System.getProperty("browser","firefox"));
+    protected final ApplicationManager app = new ApplicationManager(System.getProperty("browser","chrome"));
 
     @BeforeMethod
     public void setUp() {

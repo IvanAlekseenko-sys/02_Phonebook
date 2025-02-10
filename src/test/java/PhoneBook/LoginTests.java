@@ -17,7 +17,7 @@ public class LoginTests extends TestBase {
     }
 
     @Test
-    public void loginWoEmailTests() {
+    public void loginWoEmailNegativeTests() {
         app.getUserHelper().clickOnLoginLink();
         app.getUserHelper().fillInLoginForm(new User()
                 //.setEmail("ppp@ppp.com")

@@ -12,12 +12,18 @@ repositories {
 dependencies {
     implementation 'org.seleniumhq.selenium:selenium-java:4.28.1'
     implementation 'org.testng:testng:7.10.2'
-    implementation 'org.slf4j:slf4j-simple:2.0.12'
+    implementation 'ch.qos.logback:logback-classic:1.5.16' // зависимость от Logback для логирования
+    //implementation 'org.slf4j:slf4j-simple:2.0.12'
 }
 
 test {
     useTestNG()
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
 def registerTask(String taskName, String suitePath) {
     tasks.register(taskName, Test) {
         useTestNG() {
@@ -30,3 +36,5 @@ def registerTask(String taskName, String suitePath) {
 }
 
 registerTask('home', 'src/test/resources/home.xml')
+registerTask('smoke', 'src/test/resources/smoke.xml')
+registerTask('regression', 'src/test/resources/regression.xml')

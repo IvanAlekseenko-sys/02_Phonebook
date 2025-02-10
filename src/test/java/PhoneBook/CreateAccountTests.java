@@ -6,14 +6,14 @@ import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
 public class CreateAccountTests extends TestBase {
-    @Test
+    @Test(invocationCount = 1, priority = 1)
     public void CreateAccountPositiveTest() {
         //click Login link //a[=.'LOGIN']
         app.driver.findElement(By.xpath("//a[.='LOGIN']")).click();
         //enter email By.name("email")
         app.driver.findElement(By.name("email")).click();
         app.driver.findElement(By.name("email")).clear();
-        app.driver.findElement(By.name("email")).sendKeys("pqspap@ppp.com");
+        app.driver.findElement(By.name("email")).sendKeys("pqspap" + System.currentTimeMillis() + "@ppp.com");
         //enter password By.name("password")
         app.driver.findElement(By.name("password")).click();
         app.driver.findElement(By.name("password")).clear();
@@ -25,7 +25,7 @@ public class CreateAccountTests extends TestBase {
         //Assert.assertFalse(isElementPresent(By.xpath("//div[.='Registration failed with code 409']")));
     }
 
-    @Test
+    @Test(priority = 2)
     public void CreateAccountNegativeTest() {
         //click Login link //a[=.'LOGIN']
         app.driver.findElement(By.xpath("//a[.='LOGIN']")).click();
