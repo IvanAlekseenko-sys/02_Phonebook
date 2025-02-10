@@ -32,4 +32,12 @@ public class AddItemToCartTests extends TestBase {
         Assert.assertEquals(cartItemCount.getText(), "(1)");
     }
 
+
+    public void pause(int millis){
+        try {
+            Thread.sleep(millis);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
