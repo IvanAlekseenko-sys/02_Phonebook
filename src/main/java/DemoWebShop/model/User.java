@@ -1,4 +1,4 @@
-package DemoWebShop;
+package DemoWebShop.model;
 
 public class User {
     private String email;
