@@ -1,12 +1,12 @@
 package PhoneBook.core;
 
-import PhoneBook.fw.ContactHelper;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import com.google.common.io.Files;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
 public class BaseHelper {
@@ -42,4 +42,28 @@ public class BaseHelper {
         driver.findElement(locator).click();
     }
 
+    public String takeScreenshot() {
+        // Check for alert before taking the screenshot
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5)); // Timeout for alert detection
+            Alert alert = wait.until(ExpectedConditions.alertIsPresent());
+            alert.accept();  // or alert.dismiss(); based on your use case
+            System.out.println("Alert was present and accepted.");
+        } catch (NoAlertPresentException e) {
+            // No alert, proceed with screenshot capture
+        } catch (TimeoutException e) {
+            // Обработка TimeoutException, если alert так и не появился
+            System.out.println("No alert present within timeout, proceeding to take screenshot.");
+        }
+        // Capture screenshot
+        File tmp = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+        File screenshot = new File("src/test_screenshots/screen-" + System.currentTimeMillis() + ".png");
+        try {
+            Files.copy(tmp, screenshot);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println("Screenshot saved to: [" + screenshot.getAbsolutePath() + "]");
+        return screenshot.getAbsolutePath();
+    }
 }

@@ -1,5 +1,7 @@
 package PhoneBook;
 
+import PhoneBook.data.ContactData;
+import PhoneBook.data.UserData;
 import PhoneBook.model.Contact;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,13 +14,18 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 import static PhoneBook.fw.ContactHelper.CONTACT_LOCATOR;
-import static PhoneBook.fw.ContactHelper.CONTACT_NAME;
 
 public class AddContactTests extends TestBase {
 
     @BeforeMethod
     public void precondition() {
-        app.getUserHelper().login("ppp@ppp.com", "Password@1");
+        if (app.getUserHelper().isSignOutButtonPresent()) {
+            logger.info("User already logged in. Sign out...");
+            app.getUserHelper().clickOnSignOutButton();
+        } else {
+            logger.info("LOGIN link is present. No need to Sign Out.");
+        }
+        app.getUserHelper().login(UserData.VALID_EMAIL, UserData.VALID_PASSWORD);
     }
 
     @Test
@@ -27,7 +34,7 @@ public class AddContactTests extends TestBase {
         System.out.println("Количество контактов ДО теста " + contactsBefore);
         //addContactPositiveData(CONTACT_NAME);
         app.getContactHelper().addContactPositiveData(new Contact()
-                .setName(CONTACT_NAME)
+                .setName("Name")
                 .setLastName("LastName")
                 .setPhone("1234567890")
                 .setEmail("ppp@ppp.com")
@@ -35,7 +42,25 @@ public class AddContactTests extends TestBase {
                 .setDescription("My Contact Test"));
         int contactsAfter = app.getContactHelper().getContactsCount();
         System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
-        Assert.assertTrue(app.getContactHelper().isContactAdded(CONTACT_NAME));
+        Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
+        Assert.assertEquals(contactsAfter, contactsBefore + 1);
+    }
+
+    @Test
+    public void addContactDataPositiveTests() {
+        int contactsBefore = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ДО теста " + contactsBefore);
+        //addContactPositiveData(CONTACT_NAME);
+        app.getContactHelper().addContactPositiveData(new Contact()
+                .setName(ContactData.CONTACT_NAME)
+                .setLastName(ContactData.CONTACT_LASTNAME)
+                .setPhone(ContactData.VALID_PHONE_NUMBER)
+                .setEmail(UserData.VALID_EMAIL)
+                .setAddress(ContactData.ADDRESS)
+                .setDescription(ContactData.DESCRIPTION));
+        int contactsAfter = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
+        Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
         Assert.assertEquals(contactsAfter, contactsBefore + 1);
     }
 
@@ -45,7 +70,7 @@ public class AddContactTests extends TestBase {
         System.out.println("Количество контактов ДО теста " + contactsBefore);
         //addContactPositiveData(CONTACT_NAME);
         app.getContactHelper().addContactPositiveData(new Contact()
-                .setName(CONTACT_NAME)
+                .setName("Name")
                 .setLastName("LastName")
                 .setPhone("1234567890")
                 //.setEmail("ppp@ppp.com")
@@ -53,7 +78,25 @@ public class AddContactTests extends TestBase {
         //.setDescription("My Contact Test"));
         int contactsAfter = app.getContactHelper().getContactsCount();
         System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
-        Assert.assertTrue(app.getContactHelper().isContactAdded(CONTACT_NAME));
+        Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
+        Assert.assertEquals(contactsAfter, contactsBefore + 1);
+    }
+
+    @Test
+    public void addContactDataWoDescriptionPositiveTests() {
+        int contactsBefore = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ДО теста " + contactsBefore);
+        //addContactPositiveData(CONTACT_NAME);
+        app.getContactHelper().addContactPositiveData(new Contact()
+                .setName(ContactData.CONTACT_NAME)
+                .setLastName(ContactData.CONTACT_LASTNAME)
+                .setPhone(ContactData.VALID_PHONE_NUMBER)
+                //.setEmail(UserData.VALID_EMAIL)
+                .setAddress(ContactData.ADDRESS));
+        //.setDescription(ContactData.DESCRIPTION));
+        int contactsAfter = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
+        Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
         Assert.assertEquals(contactsAfter, contactsBefore + 1);
     }
 

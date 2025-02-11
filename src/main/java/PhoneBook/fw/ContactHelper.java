@@ -13,7 +13,6 @@ import java.util.List;
 
 public class ContactHelper extends BaseHelper {
     public static final String CONTACT_LOCATOR = "contact-item_card__2SOIM";
-    public static final String CONTACT_NAME = "Name";
 
     public ContactHelper(WebDriver driver) {
         super(driver);
@@ -58,7 +57,7 @@ public class ContactHelper extends BaseHelper {
     public boolean isContactAdded(String textToFind) {
         List<WebElement> contacts = driver.findElements(By.className(CONTACT_LOCATOR));
         for (WebElement element : contacts) {
-            if(element.getText().contains(textToFind));
+            if (element.getText().contains(textToFind)) ;
             return true;
         }
         return false;

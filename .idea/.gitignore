@@ -1,3 +1,11 @@
 # Default ignored files
 /shelf/
 /workspace.xml
+
+# Ignore test logs
+02_Phonebook/src/test_logs/
+02_Phonebook/src/test_logs/*
+
+# Ignore test screenshots
+02_Phonebook/src/test_screenshots/
+02_Phonebook/src/test_screenshots/*

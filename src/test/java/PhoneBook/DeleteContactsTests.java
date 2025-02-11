@@ -1,5 +1,6 @@
 package PhoneBook;
 
+import PhoneBook.data.ContactData;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,13 +12,18 @@ import org.testng.annotations.Test;
 import java.time.Duration;
 
 import static PhoneBook.fw.ContactHelper.CONTACT_LOCATOR;
-import static PhoneBook.fw.ContactHelper.CONTACT_NAME;
 
 public class DeleteContactsTests extends TestBase {
     @BeforeMethod
     public void precondition() {
+        if (app.getUserHelper().isSignOutButtonPresent()) {
+            logger.info("User already logged in. Sign out...");
+            app.getUserHelper().clickOnSignOutButton();
+        } else {
+            logger.info("LOGIN link is present. No need to Sign Out.");
+        }
         app.getUserHelper().login("ppp@ppp.com", "Password@1");
-        app.getContactHelper().addContactPositiveData(CONTACT_NAME);
+        app.getContactHelper().addContactPositiveData(ContactData.CONTACT_NAME);
     }
 
     @Test
