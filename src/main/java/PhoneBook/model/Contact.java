@@ -13,6 +13,19 @@ public class Contact {
         return this;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Contact{");
+        sb.append("name='").append(name).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", phone='").append(phone).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", address='").append(address).append('\'');
+        sb.append(", description='").append(description).append('\'');
+        sb.append('}');
+        return sb.toString();
+    }
+
     public Contact setLastName(String lastName) {
         this.lastName = lastName;
         return this;

@@ -3,6 +3,7 @@ package PhoneBook;
 import PhoneBook.data.ContactData;
 import PhoneBook.data.UserData;
 import PhoneBook.model.Contact;
+import PhoneBook.utils.DataProviders;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -46,23 +47,64 @@ public class AddContactTests extends TestBase {
         Assert.assertEquals(contactsAfter, contactsBefore + 1);
     }
 
-    @Test
-    public void addContactDataPositiveTests() {
+    @Test(dataProvider = "addContactDataProvider", dataProviderClass = DataProviders.class)
+    public void addContactDataPositiveTests(String contactName, String contactLastname, String validPhoneNumber, String validEmail, String address, String description) {
         int contactsBefore = app.getContactHelper().getContactsCount();
         System.out.println("Количество контактов ДО теста " + contactsBefore);
         //addContactPositiveData(CONTACT_NAME);
         app.getContactHelper().addContactPositiveData(new Contact()
-                .setName(ContactData.CONTACT_NAME)
-                .setLastName(ContactData.CONTACT_LASTNAME)
-                .setPhone(ContactData.VALID_PHONE_NUMBER)
-                .setEmail(UserData.VALID_EMAIL)
-                .setAddress(ContactData.ADDRESS)
-                .setDescription(ContactData.DESCRIPTION));
+                .setName(contactName)
+                .setLastName(contactLastname)
+                .setPhone(validPhoneNumber)
+                .setEmail(validEmail)
+                .setAddress(address)
+                .setDescription(description));
         int contactsAfter = app.getContactHelper().getContactsCount();
         System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
         Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
         Assert.assertEquals(contactsAfter, contactsBefore + 1);
     }
+
+    @Test(dataProvider = "iteratorDataProvider", dataProviderClass = DataProviders.class)
+    public void addContactDataIteratorPositiveTests(String contactName, String contactLastname, String validPhoneNumber, String validEmail, String address, String description) {
+        int contactsBefore = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ДО теста " + contactsBefore);
+        //addContactPositiveData(CONTACT_NAME);
+        app.getContactHelper().addContactPositiveData(new Contact()
+                .setName(contactName)
+                .setLastName(contactLastname)
+                .setPhone(validPhoneNumber)
+                .setEmail(validEmail)
+                .setAddress(address)
+                .setDescription(description));
+        int contactsAfter = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ПОСЛЕ теста " + contactsAfter);
+        Assert.assertTrue(app.getContactHelper().isContactAdded(ContactData.CONTACT_NAME));
+        Assert.assertEquals(contactsAfter, contactsBefore + 1);
+    }
+
+    @Test(dataProvider = "objectDataProvider", dataProviderClass = DataProviders.class)
+    public void addContactDataProviderObjectPositiveTest(Contact contact) {
+        int contactsBefore = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ДО теста: " + contactsBefore);
+        app.getContactHelper().addContactPositiveData(contact);
+        int contactsAfter = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ПОСЛЕ теста: " + contactsAfter);
+        Assert.assertTrue(app.getContactHelper().isContactAdded(contact.getName()));
+        Assert.assertEquals(contactsAfter, contactsBefore + 1);
+    }
+
+    @Test(dataProvider = "addContactFromCsv", dataProviderClass = DataProviders.class)
+    public void addContactDataProviderFromCSVPositiveTest(Contact contact) {
+        int contactsBefore = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ДО теста: " + contactsBefore);
+        app.getContactHelper().addContactPositiveData(contact);
+        int contactsAfter = app.getContactHelper().getContactsCount();
+        System.out.println("Количество контактов ПОСЛЕ теста: " + contactsAfter);
+        Assert.assertTrue(app.getContactHelper().isContactAdded(contact.getName()));
+        Assert.assertEquals(contactsAfter, contactsBefore + 1);
+    }
+
 
     @Test
     public void addContactWoDescriptionPositiveTests() {
